@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install paramiko
+
+      - name: Start SSH test containers
+        run: docker compose -f docker-compose.test.yml up -d
+
+      - name: Wait for SSH servers to be ready
+        run: |
+          for port in 2221 2222 2223; do
+            echo "Waiting for port $port..."
+            for i in $(seq 1 20); do
+              nc -z localhost $port && echo "Port $port is up" && break
+              sleep 2
+            done
+          done
+
+      - name: Run tests
+        run: python examples/test_docker.py
+
+      - name: Tear down containers
+        if: always()
+        run: docker compose -f docker-compose.test.yml down
