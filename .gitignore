@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# SSH logs
+ssh_logs/
+
+# Secrets — never commit
+.env
+*.pem
+*.key
+id_rsa
+id_ed25519
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

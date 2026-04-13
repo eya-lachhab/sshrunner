@@ -1,0 +1,46 @@
+version: "3.9"
+
+# Spins up 3 lightweight SSH servers for local testing.
+# Default credentials: user=testuser / password=testpass
+#
+# Usage:
+#   docker-compose -f docker-compose.test.yml up -d
+#   python examples/test_docker.py
+#   docker-compose -f docker-compose.test.yml down
+
+services:
+  server1:
+    image: linuxserver/openssh-server
+    container_name: sshrunner_server1
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - USER_NAME=testuser
+      - USER_PASSWORD=testpass
+      - PASSWORD_ACCESS=true
+    ports:
+      - "2221:2222"
+
+  server2:
+    image: linuxserver/openssh-server
+    container_name: sshrunner_server2
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - USER_NAME=testuser
+      - USER_PASSWORD=testpass
+      - PASSWORD_ACCESS=true
+    ports:
+      - "2222:2222"
+
+  server3:
+    image: linuxserver/openssh-server
+    container_name: sshrunner_server3
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - USER_NAME=testuser
+      - USER_PASSWORD=testpass
+      - PASSWORD_ACCESS=true
+    ports:
+      - "2223:2222"
