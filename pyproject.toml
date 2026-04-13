@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sshrunner"
-version = "0.1.0"
+version = "0.1.2"
 description = "Run commands across multiple servers over SSH — parallel, with jump host support and broadcast shell."
 readme = "README.md"
 license = { text = "MIT" }
